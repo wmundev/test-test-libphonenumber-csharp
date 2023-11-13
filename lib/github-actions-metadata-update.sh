@@ -36,6 +36,7 @@ GITHUB_REPOSITORY_OWNER=wmundev
 #GITHUB_REPOSITORY_NAME=libphonenumber-csharp
 GITHUB_REPOSITORY_NAME=test-test-libphonenumber-csharp
 
+ls
 echo "google/libphonenumber latest release is ${UPSTREAM_GITHUB_RELEASE_TAG}"
 echo "libphonenumber-csharp latest release is ${DEPLOYED_NUGET_TAG}"
 
