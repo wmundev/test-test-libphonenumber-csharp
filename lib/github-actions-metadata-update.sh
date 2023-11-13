@@ -52,7 +52,7 @@ git clone "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAM
 cd ${GITHUB_REPOSITORY_NAME}
 git checkout main
 
-cd "~/GitHub/${GITHUB_REPOSITORY_NAME}"
+cd ~/GitHub/$GITHUB_REPOSITORY_NAME
 if [ $(git branch --show-current) != "main" ]
 then
     echo "must be on main branch"
