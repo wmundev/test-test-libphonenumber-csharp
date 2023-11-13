@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>C# port of Google's common Java, C++ and Javascript library for parsing, formatting, storing and validating international phone numbers. http://code.google.com/p/libphonenumber/</Description>
+    <Title>libphonenumber-csharp</Title>
+    <AssemblyName>PhoneNumbers</AssemblyName>
+    <PackageId>libphonenumber-csharp</PackageId>
+    <VersionPrefix>$(APPVEYOR_BUILD_VERSION)</VersionPrefix>
+    <Authors>Patrick Mézard;Thomas Clegg;Jarrod Alexander;Google;libphonenumber contributors</Authors>
+    <TargetFrameworks>netstandard2.0;net6.0;net7.0</TargetFrameworks>
+    <LangVersion>preview</LangVersion>
+    <PackageTags>phonenumber phone libphonenumber e164 e.164 international</PackageTags>
+    <PackageProjectUrl>https://github.com/twcclegg/libphonenumber-csharp</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/twcclegg/libphonenumber-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
+    <RepositoryCommit>$APPVEYOR_REPO_COMMIT</RepositoryCommit>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <DebugType>full</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591;CA1062;CA1707</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\resources\*.xml" Exclude="..\..\resources\PhoneNumberMetadataForTesting.xml" />
+    <EmbeddedResource Include="..\..\resources\timezones\map_data.txt" LinkBase="timezones" />
+    <None Include="..\..\icon.png" Pack="true" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('..\..\resources\geocoding.zip')">
+    <EmbeddedResource Include="..\..\resources\geocoding\**" LinkBase="geocoding" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('..\..\resources\geocoding.zip')">
+    <EmbeddedResource Include="..\..\resources\geocoding.zip" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Collections.Immutable" Version="1.7.1" />
+    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
