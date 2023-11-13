@@ -35,6 +35,7 @@ GITHUB_REPOSITORY_OWNER=wmundev
 #GITHUB_REPOSITORY_OWNER=twcclegg
 #GITHUB_REPOSITORY_NAME=libphonenumber-csharp
 GITHUB_REPOSITORY_NAME=test-test-libphonenumber-csharp
+GITHUB_ACTION_WORKING_DIRECTORY=$(pwd)
 
 ls
 pwd
@@ -91,12 +92,11 @@ fi
 git config --global user.email '<>'
 git config --global user.name 'libphonenumber-csharp-bot'
 
-git remote set-url origin https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git
 git fetch origin
 git reset --hard $UPSTREAM_GITHUB_RELEASE_TAG
-rm -rf ../${GITHUB_REPOSITORY_NAME}/resources/*
-cp -r resources/* ../${GITHUB_REPOSITORY_NAME}/resources
-cd ../${GITHUB_REPOSITORY_NAME}
+rm -rf ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/*
+cp -r resources/* ${GITHUB_ACTION_WORKING_DIRECTORY}/resources
+cd ${GITHUB_ACTION_WORKING_DIRECTORY}
 cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
@@ -104,7 +104,5 @@ rm DumpLocale.class
 git add -A
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
-# Remove token from git remote
-git remote set-url origin "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
 
 createRelease ${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME} $UPSTREAM_GITHUB_RELEASE_TAG
