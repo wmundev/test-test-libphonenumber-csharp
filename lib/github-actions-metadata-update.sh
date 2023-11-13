@@ -31,6 +31,10 @@ createRelease() {
 GITHUB_TOKEN=$1
 UPSTREAM_GITHUB_RELEASE_TAG=$(getLatestGitHubRelease google/libphonenumber)
 DEPLOYED_NUGET_TAG=$(getLatestNugetRelease libphonenumber-csharp)
+GITHUB_REPOSITORY_OWNER=wmundev
+#GITHUB_REPOSITORY_OWNER=twcclegg
+#GITHUB_REPOSITORY_NAME=libphonenumber-csharp
+GITHUB_REPOSITORY_NAME=test-test-libphonenumber-csharp
 
 echo "google/libphonenumber latest release is ${UPSTREAM_GITHUB_RELEASE_TAG}"
 echo "libphonenumber-csharp latest release is ${DEPLOYED_NUGET_TAG}"
@@ -45,11 +49,11 @@ mkdir ~/GitHub
 
 (
   cd ~/GitHub
-  git clone "https://github.com/twcclegg/libphonenumber-csharp.git"
-  cd libphonenumber-csharp
+  git clone "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
+  cd ${GITHUB_REPOSITORY_NAME}
   git checkout main
 )
-cd ~/GitHub/libphonenumber-csharp/
+cd "~/GitHub/${GITHUB_REPOSITORY_NAME}/"
 if [ $(git branch --show-current) != "main" ]
 then
     echo "must be on main branch"
@@ -89,9 +93,9 @@ git config --global user.name 'libphonenumber-csharp-bot'
 
 git fetch origin
 git reset --hard $UPSTREAM_GITHUB_RELEASE_TAG
-rm -rf ../libphonenumber-csharp/resources/*
-cp -r resources/* ../libphonenumber-csharp/resources
-cd ../libphonenumber-csharp
+rm -rf ../${GITHUB_REPOSITORY_NAME}/resources/*
+cp -r resources/* ../${GITHUB_REPOSITORY_NAME}/resources
+cd ../${GITHUB_REPOSITORY_NAME}
 cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
@@ -102,4 +106,4 @@ sleep 15
 echo -n "build pending"
 sleep 60
 
-createRelease twcclegg/libphonenumber-csharp $UPSTREAM_GITHUB_RELEASE_TAG
+createRelease ${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME} $UPSTREAM_GITHUB_RELEASE_TAG
