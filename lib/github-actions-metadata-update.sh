@@ -68,6 +68,9 @@ then
    exit
 fi
 
+git config --global user.email '<>'
+git config --global user.name 'libphonenumber-csharp-bot'
+
 git fetch origin
 git reset --hard $UPSTREAM
 rm -rf ../libphonenumber-csharp/resources/*
@@ -82,20 +85,5 @@ git push
 sleep 15
 echo -n "build pending"
 sleep 60
-
-while
-    sleep 15
-    echo -n "."
-    RESULT=$(getAppVeyorStatus twcclegg/libphonenumber-csharp)
-    [ $RESULT = "running" ] || [ $RESULT = "starting" ]
-do true
-done
-echo
-
-if [ $RESULT != "success" ]
-then
-    echo "build failed: $RESULT"
-    exit
-fi
 
 createRelease twcclegg/libphonenumber-csharp $UPSTREAM
