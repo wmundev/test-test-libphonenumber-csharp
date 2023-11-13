@@ -3,13 +3,13 @@
 if [ $# -ne 1 ]
 then
     echo "GitHub token required"
-    exit
+    exit 123
 fi
 
 if [ ! command -v jq &> /dev/null ]
 then
     echo "jq required"
-    exit
+    exit 123
 fi
 
 getLatestGitHubRelease() {
@@ -41,8 +41,8 @@ echo "libphonenumber-csharp latest release is ${DEPLOYED_NUGET_TAG}"
 
 if [ "$DEPLOYED_NUGET_TAG" = "${UPSTREAM_GITHUB_RELEASE_TAG:1}" ]
 then
-    echo "versions match"
-    exit
+    echo "versions match, new release not required"
+    exit 0
 fi
 
 mkdir ~/GitHub
@@ -57,13 +57,13 @@ cd "~/GitHub/${GITHUB_REPOSITORY_NAME}/"
 if [ $(git branch --show-current) != "main" ]
 then
     echo "must be on main branch"
-    exit
+    exit 123
 fi
 
 if [ -n "$(git status --porcelain)" ]
 then
     echo "working directory is not clean"
-    exit
+    exit 123
 fi
 
 (
@@ -78,14 +78,14 @@ FILES=$(getReleaseDelta google/libphonenumber "v${DEPLOYED_NUGET_TAG}" $UPSTREAM
 
 if echo $FILES | grep '\.java'
 then
-   echo "has java"
-   exit
+   echo "has java files, automatic update not possible"
+   exit 123
 fi
 
 if echo $FILES | grep 'proto'
 then
-   echo "has proto"
-   exit
+   echo "has proto files, automatic update not possible"
+   exit 123
 fi
 
 git config --global user.email '<>'
