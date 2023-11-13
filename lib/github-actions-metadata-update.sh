@@ -102,5 +102,7 @@ git remote set-url origin "https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@gi
 git add -A
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
+# Remove token from git remote
+git remote set-url origin "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
 
 createRelease ${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME} $UPSTREAM_GITHUB_RELEASE_TAG
