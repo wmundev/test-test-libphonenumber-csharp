@@ -32,6 +32,9 @@ GITHUB_TOKEN=$1
 UPSTREAM=$(getLatestGitHubRelease google/libphonenumber)
 DEPLOYED=$(getLatestNugetRelease libphonenumber-csharp)
 
+echo "google/libphonenumber latest release is ${UPSTREAM}"
+echo "libphonenumber-csharp latest release is ${DEPLOYED}"
+
 if [ "$DEPLOYED" = "${UPSTREAM:1}" ]
 then
     echo "versions match"
