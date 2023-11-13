@@ -1,6 +1,6 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: "create-new-release-on-new-metadata-update"
+name: "create_new_release_on_new_metadata_update"
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  create_new_release_on_new_metadata_update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
