@@ -69,7 +69,7 @@ fi
 (
   cd ~/GitHub
   git clone "https://github.com/google/libphonenumber.git"
-  git checkout "tags/${UPSTREAM_GITHUB_RELEASE_TAG}"
+  git checkout master
 )
 cd ~/GitHub/libphonenumber/
 PREVIOUS=$(git describe --abbrev=0)
@@ -100,7 +100,7 @@ cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
 git add -A
-git commit -m "$UPSTREAM_GITHUB_RELEASE_TAG"
+git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
 sleep 15
 echo -n "build pending"
