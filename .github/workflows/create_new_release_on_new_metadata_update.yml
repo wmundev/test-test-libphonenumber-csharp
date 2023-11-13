@@ -4,7 +4,7 @@ name: "create_new_release_on_new_metadata_update"
 
 on:
   schedule:
-    - cron: '0 8 * * 6'
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
