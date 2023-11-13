@@ -74,7 +74,7 @@ fi
 cd ~/GitHub/libphonenumber/
 PREVIOUS=$(git describe --abbrev=0)
 
-FILES=$(getReleaseDelta google/libphonenumber $PREVIOUS $UPSTREAM_GITHUB_RELEASE_TAG)
+FILES=$(getReleaseDelta google/libphonenumber "v${DEPLOYED_NUGET_TAG}" $UPSTREAM_GITHUB_RELEASE_TAG)
 
 if echo $FILES | grep '\.java'
 then
