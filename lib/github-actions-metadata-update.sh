@@ -47,12 +47,11 @@ fi
 
 mkdir ~/GitHub
 
-(
-  cd ~/GitHub
-  git clone "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
-  cd ${GITHUB_REPOSITORY_NAME}
-  git checkout main
-)
+cd ~/GitHub
+git clone "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
+cd ${GITHUB_REPOSITORY_NAME}
+git checkout main
+
 cd "~/GitHub/${GITHUB_REPOSITORY_NAME}/"
 if [ $(git branch --show-current) != "main" ]
 then
@@ -66,11 +65,10 @@ then
     exit 123
 fi
 
-(
-  cd ~/GitHub
-  git clone "https://github.com/google/libphonenumber.git"
-  git checkout master
-)
+cd ~/GitHub
+git clone "https://github.com/google/libphonenumber.git"
+git checkout master
+
 cd ~/GitHub/libphonenumber/
 PREVIOUS=$(git describe --abbrev=0)
 
