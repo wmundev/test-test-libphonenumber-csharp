@@ -89,6 +89,7 @@ fi
 git config --global user.email '<>'
 git config --global user.name 'libphonenumber-csharp-bot'
 
+git remote set-url origin https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git
 git fetch origin
 git reset --hard $UPSTREAM_GITHUB_RELEASE_TAG
 rm -rf ../${GITHUB_REPOSITORY_NAME}/resources/*
@@ -98,7 +99,6 @@ cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
 
-git remote set-url origin "https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
 git add -A
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
