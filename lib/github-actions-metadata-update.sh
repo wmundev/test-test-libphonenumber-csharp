@@ -29,13 +29,13 @@ createRelease() {
 }
 
 GITHUB_TOKEN=$1
-UPSTREAM=$(getLatestGitHubRelease google/libphonenumber)
-DEPLOYED=$(getLatestNugetRelease libphonenumber-csharp)
+UPSTREAM_GITHUB_RELEASE_TAG=$(getLatestGitHubRelease google/libphonenumber)
+DEPLOYED_NUGET_TAG=$(getLatestNugetRelease libphonenumber-csharp)
 
-echo "google/libphonenumber latest release is ${UPSTREAM}"
-echo "libphonenumber-csharp latest release is ${DEPLOYED}"
+echo "google/libphonenumber latest release is ${UPSTREAM_GITHUB_RELEASE_TAG}"
+echo "libphonenumber-csharp latest release is ${DEPLOYED_NUGET_TAG}"
 
-if [ "$DEPLOYED" = "${UPSTREAM:1}" ]
+if [ "$DEPLOYED_NUGET_TAG" = "${UPSTREAM_GITHUB_RELEASE_TAG:1}" ]
 then
     echo "versions match"
     exit
@@ -45,7 +45,9 @@ mkdir ~/GitHub
 
 (
   cd ~/GitHub
-  git clone "https://github.com/twcclegg/libphonenumber-csharp/tree/main"
+  git clone "https://github.com/twcclegg/libphonenumber-csharp.git"
+  cd libphonenumber-csharp
+  git checkout main
 )
 cd ~/GitHub/libphonenumber-csharp/
 if [ $(git branch --show-current) != "main" ]
@@ -62,12 +64,13 @@ fi
 
 (
   cd ~/GitHub
-  git clone "https://github.com/google/libphonenumber/tree/${UPSTREAM}"
+  git clone "https://github.com/google/libphonenumber.git"
+  git checkout "tags/${UPSTREAM_GITHUB_RELEASE_TAG}"
 )
 cd ~/GitHub/libphonenumber/
 PREVIOUS=$(git describe --abbrev=0)
 
-FILES=$(getReleaseDelta google/libphonenumber $PREVIOUS $UPSTREAM)
+FILES=$(getReleaseDelta google/libphonenumber $PREVIOUS $UPSTREAM_GITHUB_RELEASE_TAG)
 
 if echo $FILES | grep '\.java'
 then
@@ -85,7 +88,7 @@ git config --global user.email '<>'
 git config --global user.name 'libphonenumber-csharp-bot'
 
 git fetch origin
-git reset --hard $UPSTREAM
+git reset --hard $UPSTREAM_GITHUB_RELEASE_TAG
 rm -rf ../libphonenumber-csharp/resources/*
 cp -r resources/* ../libphonenumber-csharp/resources
 cd ../libphonenumber-csharp
@@ -93,10 +96,10 @@ cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
 git add -A
-git commit -m "$UPSTREAM"
+git commit -m "$UPSTREAM_GITHUB_RELEASE_TAG"
 git push
 sleep 15
 echo -n "build pending"
 sleep 60
 
-createRelease twcclegg/libphonenumber-csharp $UPSTREAM
+createRelease twcclegg/libphonenumber-csharp $UPSTREAM_GITHUB_RELEASE_TAG
