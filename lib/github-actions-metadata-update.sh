@@ -41,6 +41,12 @@ then
     exit
 fi
 
+mkdir ~/GitHub
+
+(
+  cd ~/GitHub
+  git clone "https://github.com/twcclegg/libphonenumber-csharp/tree/main"
+)
 cd ~/GitHub/libphonenumber-csharp/
 if [ $(git branch --show-current) != "main" ]
 then
@@ -54,6 +60,10 @@ then
     exit
 fi
 
+(
+  cd ~/GitHub
+  git clone "https://github.com/google/libphonenumber/tree/${UPSTREAM}"
+)
 cd ~/GitHub/libphonenumber/
 PREVIOUS=$(git describe --abbrev=0)
 
