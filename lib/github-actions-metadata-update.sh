@@ -97,9 +97,10 @@ cd ../${GITHUB_REPOSITORY_NAME}
 cd lib
 javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
+
+git remote set-url origin "https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
 git add -A
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
-git remote set-url origin "https://${GITHUB_REPOSITORY_OWNER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
 
 createRelease ${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME} $UPSTREAM_GITHUB_RELEASE_TAG
