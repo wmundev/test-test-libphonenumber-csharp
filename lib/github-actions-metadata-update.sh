@@ -110,8 +110,9 @@ cd ${GITHUB_ACTION_WORKING_DIRECTORY}/csharp
 dotnet restore
 dotnet build --no-restore
 dotnet test --no-build --verbosity normal
-
+echo "wow"
 git add -A
+echo "nice"
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
 
