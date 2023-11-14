@@ -1,4 +1,6 @@
 #! /bin/bash
+# Exit bash script on any command that returns a non zero error code
+set -e
 
 if [ $# -ne 1 ]
 then
