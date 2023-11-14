@@ -39,8 +39,6 @@ GITHUB_REPOSITORY_OWNER=wmundev
 GITHUB_REPOSITORY_NAME=test-test-libphonenumber-csharp
 GITHUB_ACTION_WORKING_DIRECTORY=$(pwd)
 
-ls
-pwd
 echo "google/libphonenumber latest release is ${UPSTREAM_GITHUB_RELEASE_TAG}"
 echo "libphonenumber-csharp latest release is ${DEPLOYED_NUGET_TAG}"
 
@@ -105,9 +103,10 @@ javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
 
 # Ensure project builds and passes tests before committing
-zip -r -j ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding.zip ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding/*
-zip -r -j ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/testgeocoding.zip ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/geocoding/*
-cd ${GITHUB_ACTION_WORKING_DIRECTORY}/csharp
+cd ${GITHUB_ACTION_WORKING_DIRECTORY}
+zip -r ./resources/geocoding.zip ./resources/geocoding/*
+zip -r ./resources/test/testgeocoding.zip ./resources/test/geocoding/*
+cd csharp
 dotnet restore
 dotnet build --no-restore
 dotnet test --no-build --verbosity normal
