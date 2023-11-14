@@ -53,7 +53,7 @@ fi
 mkdir ~/GitHub
 
 cd ~/GitHub
-git clone "https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git"
+git clone https://github.com/${GITHUB_REPOSITORY_OWNER}/${GITHUB_REPOSITORY_NAME}.git
 cd ${GITHUB_REPOSITORY_NAME}
 git checkout main
 
@@ -71,7 +71,7 @@ then
 fi
 
 cd ~/GitHub
-git clone "https://github.com/google/libphonenumber.git"
+git clone https://github.com/google/libphonenumber.git
 git checkout master
 
 cd ~/GitHub/libphonenumber
