@@ -104,8 +104,8 @@ rm DumpLocale.class
 
 # Ensure project builds and passes tests before committing
 cd ${GITHUB_ACTION_WORKING_DIRECTORY}
-zip -r ./resources/geocoding.zip ./resources/geocoding/*
-zip -r ./resources/test/testgeocoding.zip ./resources/test/geocoding/*
+(cd resources/geocoding; zip -r ../../resources/geocoding.zip *)
+(cd resources/test/geocoding; zip -r ../../../resources/test/testgeocoding.zip *)
 cd csharp
 dotnet restore
 dotnet build --no-restore
