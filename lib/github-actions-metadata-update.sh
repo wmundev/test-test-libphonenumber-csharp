@@ -72,6 +72,7 @@ fi
 
 cd ~/GitHub
 git clone https://github.com/google/libphonenumber.git
+cd libphonenumber
 git checkout master
 
 cd ~/GitHub/libphonenumber
@@ -114,9 +115,7 @@ dotnet test --no-build --verbosity normal
 rm -rf ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding.zip
 rm -rf ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/testgeocoding.zip
 
-echo "wow"
 git add -A
-echo "nice"
 git commit -m "feat: automatic upgrade to ${UPSTREAM_GITHUB_RELEASE_TAG}"
 git push
 
