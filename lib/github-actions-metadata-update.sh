@@ -110,10 +110,8 @@ cd csharp
 dotnet restore
 dotnet build --no-restore
 # Run tests that are not in the PhoneNumbers.Extensions.Test project
-(
 cd csharp/PhoneNumbers.Test
 dotnet test --no-build --verbosity normal
-)
 # Cleanup test dependencies
 rm -rf ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding.zip
 rm -rf ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/testgeocoding.zip
