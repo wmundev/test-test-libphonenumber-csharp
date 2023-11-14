@@ -102,10 +102,10 @@ javac DumpLocale.java && java DumpLocale > ../csharp/PhoneNumbers/LocaleData.cs
 rm DumpLocale.class
 
 # Ensure project builds and passes tests before committing
-#  - ps: Compress-Archive -Path "resources\geocoding\*" -DestinationPath "resources\geocoding.zip"
+  #  - ps: Compress-Archive -Path "resources\geocoding\*" -DestinationPath "resources\geocoding.zip"
 #  - ps: Compress-Archive -Path "resources\test\geocoding\*" -DestinationPath "resources\test\testgeocoding.zip"
-zip -r ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding/* ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding.zip
-zip -r ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/geocoding/* ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/testgeocoding.zip
+zip -r ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding.zip ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/geocoding/*
+zip -r ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/testgeocoding.zip ${GITHUB_ACTION_WORKING_DIRECTORY}/resources/test/geocoding/*
 cd ${GITHUB_ACTION_WORKING_DIRECTORY}/csharp
 dotnet restore
 dotnet build --no-restore
