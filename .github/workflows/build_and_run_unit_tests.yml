@@ -13,9 +13,6 @@ on:
 jobs:
   build_and_run_unit_tests:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./csharp
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
@@ -28,7 +25,10 @@ jobs:
           (cd resources/test/geocoding; zip -r ../../../resources/test/testgeocoding.zip *)
       - name: Restore dependencies
         run: dotnet restore
+        working-directory: ./csharp
       - name: Build
         run: dotnet build --no-restore
+        working-directory: ./csharp
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        working-directory: ./csharp
