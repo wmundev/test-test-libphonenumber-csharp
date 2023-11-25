@@ -143,7 +143,8 @@ namespace PhoneNumbers
                     continue;
                 }
 
-                var (name, country) = ParseCountryFromArchive(entry);
+                var name = ParseNameFromArchive(entry);
+                int country = int.Parse(name[1], CultureInfo.InvariantCulture);
                 var language = name[0];
                 if (!files.TryGetValue(country, out var languages))
                     files[country] = languages = new HashSet<string>();
@@ -153,26 +154,24 @@ namespace PhoneNumbers
             return files;
         }
 
-        private static (string[], int) ParseCountryFromArchive(ZipArchiveEntry entry)
+        private static string[] ParseNameFromArchive(ZipArchiveEntry entry)
         {
-            int country;
+            const int expectedLength = 2;
             string[] name;
             try
             {
                 name = entry.FullName.Split('.')[0].Split(Path.DirectorySeparatorChar);
-                if (name.Length < 2)
+                if (name.Length < expectedLength)
                 {
                     name = entry.FullName.Split('.')[0].Split(Path.AltDirectorySeparatorChar);
                 }
-
-                country = int.Parse(name[1], CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
                 throw new Exception("Failed to parse zipped geocoding file name: " + entry.FullName);
             }
 
-            return (name, country);
+            return name;
         }
 
         private static SortedDictionary<int, HashSet<string>> LoadFileNamesFromManifestResources(Assembly asm, string prefix)
