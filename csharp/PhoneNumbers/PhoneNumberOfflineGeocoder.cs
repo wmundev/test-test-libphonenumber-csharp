@@ -144,7 +144,7 @@ namespace PhoneNumbers
                 }
 
                 var name = ParseNameFromArchive(entry);
-                int country = int.Parse(name[1], CultureInfo.InvariantCulture);
+                var country = int.Parse(name[1], CultureInfo.InvariantCulture);
                 var language = name[0];
                 if (!files.TryGetValue(country, out var languages))
                     files[country] = languages = new HashSet<string>();
