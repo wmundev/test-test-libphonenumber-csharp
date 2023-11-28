@@ -67,6 +67,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.x
+    - name: Add zip files required for running tests
+      run: |
+        (cd resources/geocoding; zip -r ../../resources/geocoding.zip *)
+        (cd resources/test/geocoding; zip -r ../../../resources/test/testgeocoding.zip *)
     - name: Build solution
       timeout-minutes: 30
       run: |
