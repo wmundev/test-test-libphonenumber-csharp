@@ -71,10 +71,11 @@ jobs:
       run: |
         (cd resources/geocoding; zip -r ../../resources/geocoding.zip *)
         (cd resources/test/geocoding; zip -r ../../../resources/test/testgeocoding.zip *)
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./csharp
     - name: Build solution
-      timeout-minutes: 30
-      run: |
-        dotnet build
+      run: dotnet build --no-restore
       working-directory: ./csharp
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
