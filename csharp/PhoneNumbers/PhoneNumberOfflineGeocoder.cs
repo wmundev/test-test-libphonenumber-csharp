@@ -164,7 +164,8 @@ namespace PhoneNumbers
 
         private static string[] ParseNameFromArchive(ZipArchiveEntry entry)
         {
-            return entry.FullName.Split('.')[0].Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var returns = entry.FullName.Split('.')[0].Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            return returns;
         }
 
         private static SortedDictionary<int, HashSet<string>> LoadFileNamesFromManifestResources(Assembly asm, string prefix)
