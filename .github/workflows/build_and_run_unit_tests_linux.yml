@@ -30,5 +30,8 @@ jobs:
         run: dotnet build --no-restore
         working-directory: ./csharp
       - name: Test PhoneNumbers.Test project
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --verbosity normal -p:TargetFrameworks=net6.0
         working-directory: ./csharp/PhoneNumbers.Test
+      - name: Test PhoneNumbers.Extensions.Test project
+        run: dotnet test --no-build --verbosity normal -p:TargetFrameworks=net6.0
+        working-directory: ./csharp/PhoneNumbers.Extensions.Test
