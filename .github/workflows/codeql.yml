@@ -75,7 +75,7 @@ jobs:
       run: dotnet restore
       working-directory: ./csharp
     - name: Build solution
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore -p:TargetFrameworks=net7.0
       working-directory: ./csharp
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
