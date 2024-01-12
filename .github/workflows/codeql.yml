@@ -63,8 +63,18 @@ jobs:
 
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+  #  - name: Autobuild
+  #    uses: github/codeql-action/autobuild@v3
+    - name: Add zip files required for running tests
+      run: |
+        (cd resources/geocoding; zip -r ../../resources/geocoding.zip *)
+        (cd resources/test/geocoding; zip -r ../../../resources/test/testgeocoding.zip *)
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./csharp
+    - name: Build solution
+      run: dotnet build --no-restore -p:TargetFrameworks=net7.0
+      working-directory: ./csharp
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
